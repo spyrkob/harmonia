@@ -2,6 +2,8 @@
 
 yum install -y wget
 
+preBuiltAppServerZip="${BUILD_COMMAND}"
+
 echo "use prebuilt wildfly zip $preBuiltAppServerZip"
 mkdir -p build/target
 mkdir wf
