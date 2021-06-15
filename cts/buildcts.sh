@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-pwd
+yum install -y wget
 
 WGET='wget -q --no-check-certificate'
 
