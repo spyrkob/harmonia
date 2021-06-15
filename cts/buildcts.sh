@@ -9,11 +9,11 @@ echo "download eclipse-jakartaeetck-8.0.2.zip for Jakarta EE 8 that resolves JSO
 $WGET https://download.eclipse.org/jakartaee/platform/8/eclipse-jakartaeetck-8.0.2.zip.sig
 $WGET https://download.eclipse.org/jakartaee/platform/8/eclipse-jakartaeetck-8.0.2.zip
 
-mv workdir/eclipse-jakartaeetck-8.0.2.zip workdir/jakartaeetck.zip
-mv workdir/eclipse-jakartaeetck-8.0.2.zip.sig workdir/jakartaeetckinfo.txt
-cat workdir/jakartaeetckinfo.txt
-mkdir -p workdir/release/JAVAEE_BUILD/latest
-sha256sum workdir/jakartaeetck.zip > workdir/jakartaeetck.fingerprint
+mv eclipse-jakartaeetck-8.0.2.zip jakartaeetck.zip
+mv eclipse-jakartaeetck-8.0.2.zip.sig jakartaeetckinfo.txt
+cat jakartaeetckinfo.txt
+mkdir -p release/JAVAEE_BUILD/latest
+sha256sum jakartaeetck.zip > jakartaeetck.fingerprint
 echo "local sha256sum of jakartaeetck.zip="
-cat workdir/jakartaeetck.fingerprint
-mv workdir/jakartaeetck.zip workdir/release/JAVAEE_BUILD/latest/
+cat jakartaeetck.fingerprint
+mv jakartaeetck.zip release/JAVAEE_BUILD/latest/
