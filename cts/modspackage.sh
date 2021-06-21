@@ -1,4 +1,3 @@
 #!/bin/bash
 
-cd workdir
-zip -r ../mods.zip . -x "*/.git/*"
+zip -r mods.zip cts-8-mods -x "*/.git/*"
