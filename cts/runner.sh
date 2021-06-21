@@ -250,6 +250,7 @@ unzip -o jakartaeetck.zip > /dev/null && rm -f jakartaeetck.zip
 
 # $WGET https://www-us.apache.org/dist/ant/binaries/apache-ant-1.10.6-bin.zip
 # we now copy ant from apacheant job
+$WGET https://archive.apache.org/dist/ant/binaries/apache-ant-1.10.6-bin.zip
 if [ ! -f apache-ant-1.10.6-bin.zip ]; then
     echo "wget of apache-ant-1.10.6-bin.zip failed as file doesn't exist, exiting with failure"
     exit 1
