@@ -1,3 +1,4 @@
 #!/bin/bash
 
-zip -r mods.zip . -x "*/.git/*"
+cd workdir
+zip -r ../mods.zip . -x "*/.git/*"
