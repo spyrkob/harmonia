@@ -10,6 +10,9 @@ reverse="false"
 WGET='wget -q --no-check-certificate --tries=100'
 
 echo "${JAVA_HOME}"
+echo "${JAVATEST_URL}"
+$WGET "${JAVATEST_URL}"
+ls -alF
 
 #if [[ "$jdkVendor" == "OpenJDK11" ]]; then
 #  echo "using JDK11"
