@@ -1,6 +1,6 @@
 #!/bin/bash
 
-yum install -y wget
+yum install -y wget procps-ng
 
 testFolder="securityapi"
 securityManager="true"
