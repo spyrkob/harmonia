@@ -50,6 +50,7 @@ function createReport() {
     
     cd $TS_HOME/bin
 # TODO: switch to javatest.zip replacement in Jakarta EE 8    
+    mv "${TCK_HOME_DIR}/javatest.zip" .
     ls -alF
     unzip -n javatest.zip 
     rm javatest.zip
