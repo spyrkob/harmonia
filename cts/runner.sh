@@ -47,6 +47,7 @@ function createReport() {
     
     cd $TS_HOME/bin
 # TODO: switch to javatest.zip replacement in Jakarta EE 8    
+    $WGET "${JAVATEST_URL}"
     unzip -n javatest.zip 
     rm javatest.zip
     java -verbose -Xint -cp javatest.jar:jh.jar:$TS_HOME/lib/tsharness.jar com.sun.javatest.cof.Main -o report.xml JTwork &> tmp_log
