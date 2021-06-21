@@ -234,6 +234,8 @@ echo $appserverconfig
 
 stopall
 
+echo "Unzipping"
+
 unzip wildfly.zip > /dev/null && rm -f wildfly.zip
 mv wildfly-* wildfly || true
 
@@ -247,6 +249,7 @@ unzip -o mods.zip > /dev/null && rm -f mods.zip
 mv jakartaeetck*.zip jakartaeetck.zip
 unzip -o jakartaeetck.zip > /dev/null && rm -f jakartaeetck.zip
 
+ls -alF
 
 # $WGET https://www-us.apache.org/dist/ant/binaries/apache-ant-1.10.6-bin.zip
 # we now copy ant from apacheant job
