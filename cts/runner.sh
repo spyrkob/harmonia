@@ -1,6 +1,6 @@
 #!/bin/bash
 
-yum install -y wget procps-ng
+yum install -y wget procps-ng net-tools
 
 testFolder="securityapi"
 securityManager="true"
