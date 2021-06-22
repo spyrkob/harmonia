@@ -1,8 +1,11 @@
 #!/bin/bash
 
+source props.sh
+
+echo "${testFolder}"
+
 yum install -y wget procps-ng net-tools
 
-testFolder="securityapi"
 securityManager="true"
 profile="full-profile"
 reverse="false"
