@@ -2,13 +2,13 @@
 
 source props.sh
 
-echo "${testFolder}"
+echo "testFolder: ${testFolder}"
+echo "securityManager: ${securityManager}"
+echo "reverse: ${reverse}"
 
 yum install -y wget procps-ng net-tools
 
-securityManager="true"
 profile="full-profile"
-reverse="false"
 
 WGET='wget -q --no-check-certificate --tries=100'
 
