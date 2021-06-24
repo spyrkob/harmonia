@@ -2,7 +2,6 @@
 
 pwd
 ls -alF
-dnf install -y git
 
 source ../props.sh
 
@@ -46,8 +45,8 @@ ${MAVEN_HOME}/bin/mvn org.apache.maven.plugins:maven-install-plugin:3.0.0-M1:ins
 cd $WORKSPACE
 
 echo "build javax.inject"
-git clone https://github.com/eclipse-ee4j/injection-api
-cd injection-api
+#git clone https://github.com/eclipse-ee4j/injection-api
+cd ../injection-api
 git checkout 1.0
 ${MAVEN_HOME}/bin/mvn clean install
 cd $WORKSPACE
