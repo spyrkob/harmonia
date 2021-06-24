@@ -302,9 +302,10 @@ fi
 
 echo "<br><br>Security configuration used: $security" >> $result
 
-security=`echo $additionalParams | jq -r '.security'`
-testChoices=`echo $additionalParams | jq -r '.testChoices'`
-singletest=`echo $additionalParams | jq -r '.singletest'`
+# TODO: if needed add those
+#security=`echo $additionalParams | jq -r '.security'`
+#testChoices=`echo $additionalParams | jq -r '.testChoices'`
+#singletest=`echo $additionalParams | jq -r '.singletest'`
 
 if [ $testChoices != 'null' ]; then
   if  [ $testChoices == 'single' ]; then
