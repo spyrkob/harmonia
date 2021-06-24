@@ -1,5 +1,9 @@
 #!/bin/bash
 
+pwd
+ls -alF
+dnf install -y git
+
 source ../props.sh
 
 if [[ -n "$weldVersion" ]]; then
@@ -26,7 +30,7 @@ export MAVEN_OPTS="$MAVEN_OPTS -Dmaven.repo.local=$repo"
 mkdir download
 cd download
 # wget http://download.eclipse.org/ee4j/cdi/jakarta.inject-tck-1.0-bin.zip
-wget http://download.eclipse.org/jakartaee/dependency-injection/1.0/jakarta.inject-tck-1.0-bin.zip
+curl http://download.eclipse.org/jakartaee/dependency-injection/1.0/jakarta.inject-tck-1.0-bin.zip -o jakarta.inject-tck-1.0-bin.zip
 
 echo "sha256sum of jakarta.inject-tck-1.0-bin.zip:"
 sha256sum jakarta.inject-tck-1.0-bin.zip
