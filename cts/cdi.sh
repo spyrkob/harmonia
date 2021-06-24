@@ -2,6 +2,10 @@
 
 source ../props.sh
 
+pwd
+ls -alF
+
+
 # TODO: should checkout in the pipeline, but we don't know the branch until later
 dnf install -y git
 
