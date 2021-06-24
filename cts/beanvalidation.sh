@@ -43,7 +43,7 @@ DIST_HIBERNATE_VALIDATOR_VERSION=$(grep "hibernate-validator-6.0" $MODULE_FILE |
 
 # Jakarta EE 8 use https://download.eclipse.org/jakartaee/bean-validation/2.0/beanvalidation-tck-dist-2.0.5.zip
 
-wget -q https://download.eclipse.org/jakartaee/bean-validation/2.0/beanvalidation-tck-dist-2.0.5.zip
+curl -k https://download.eclipse.org/jakartaee/bean-validation/2.0/beanvalidation-tck-dist-2.0.5.zip -o beanvalidation-tck-dist-2.0.5.zip
 sha256sum beanvalidation-tck-dist-2.0.5.zip
 unzip -q beanvalidation-tck-dist-2.0.5.zip
 cd beanvalidation-tck-dist-2.0.5/src
