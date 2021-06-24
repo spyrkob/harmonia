@@ -342,4 +342,5 @@ else
     #TODO: fail if there are any failures. Otherwise succeed
     #echo "reporting is complete, raise a failure to cause the email summary report to be sent"
     #exit 1
+    :
 fi
