@@ -3,6 +3,7 @@
 source ../props.sh
 # hack around mvn-wrapper trying to force us in workdir folder
 cd ../
+WORKSPACE=$(pwd)
 echo "WORKSPACE: ${WORKSPACE}"
 
 
