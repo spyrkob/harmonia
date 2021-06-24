@@ -1,9 +1,9 @@
 #!/bin/bash
 
 source ../props.sh
-
-pwd
-ls -alF
+# hack around mvn-wrapper trying to force us in workdir folder
+cd ../
+echo "WORKSPACE: ${WORKSPACE}"
 
 
 # TODO: should checkout in the pipeline, but we don't know the branch until later
