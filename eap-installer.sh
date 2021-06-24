@@ -78,7 +78,8 @@ else
         BUILD_OPTS="${BUILD_OPTS} -Deap.bits.url.zip=${EAP_BUILD_LINK}"
     fi
     
-    export MAVEN_OPTS="-Xms1968m -Xmx1968m -XX:MaxPermSize=256m"
+    MAVEN_OPTS="-Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -Dmaven.wagon.http.ssl.ignore.validity.dates=true"
+    export MAVEN_OPTS="-Xms1968m -Xmx1968m -XX:MaxPermSize=256m ${MAVEN_OPTS}"
     export DISPLAY=:1
     export INSTALL_TIMEOUT=600
 
