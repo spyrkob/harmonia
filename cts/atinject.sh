@@ -37,7 +37,7 @@ sha256sum jakarta.inject-tck-1.0-bin.zip
 unzip jakarta.inject-tck-1.0-bin.zip
 cd jakarta.inject-tck-1.0/
 echo "copy tck to local maven repo jakarta.inject:jakarta.jakarta.inject-api:jar:1.0"
-mvn org.apache.maven.plugins:maven-install-plugin:3.0.0-M1:install-file -Dfile=jakarta.inject-tck-1.0.jar \
+${MAVEN_HOME}/bin/mvn org.apache.maven.plugins:maven-install-plugin:3.0.0-M1:install-file -Dfile=jakarta.inject-tck-1.0.jar \
   -DgroupId=jakarta.inject \
   -DartifactId=jakarta.inject-api \
   -Dversion=1.0 \
@@ -49,13 +49,13 @@ echo "build javax.inject"
 git clone https://github.com/eclipse-ee4j/injection-api
 cd injection-api
 git checkout 1.0
-mvn clean install
+${MAVEN_HOME}/bin/mvn clean install
 cd $WORKSPACE
 
 #echo "build tck in $PWD"
 #ls 
-mvn clean install
+${MAVEN_HOME}/bin/mvn clean install
 ls target
 cd example
 echo "run tck"
-mvn compile test -Dweld.version=$weldVersion
+${MAVEN_HOME}/bin/mvn compile test -Dweld.version=$weldVersion
