@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source props.sh
+source ../props.sh
 
 if [[ -n "$weldVersion" ]]; then
   # TODO: look inside of appserver zip and locate wild-core, extract version from that
