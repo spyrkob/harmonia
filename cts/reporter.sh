@@ -307,8 +307,8 @@ echo "<br><br>Security configuration used: $security" >> $result
 #testChoices=`echo $additionalParams | jq -r '.testChoices'`
 #singletest=`echo $additionalParams | jq -r '.singletest'`
 
-if [ $testChoices != 'null' ]; then
-  if  [ $testChoices == 'single' ]; then
+if [ "${testChoices}" != 'null' ]; then
+  if  [ "${testChoices}" == 'single' ]; then
     echo "<br><br>Run single testsuite $singletest with $security configuration." >> $result
   else
     echo "<br><br>Run $testChoices testsuites with $security configuration."  >> $result
@@ -338,7 +338,8 @@ zip $WORKSPACE/tck_results/testfiles.zip $result
 
 if [ "$skipEmail" = "true" ];then 
   echo "skip sending email"
-else   
- echo "reporting is complete, raise a failure to cause the email summary report to be sent"
- exit 1
+else
+    #TODO: fail if there are any failures. Otherwise succeed
+    #echo "reporting is complete, raise a failure to cause the email summary report to be sent"
+    #exit 1
 fi
