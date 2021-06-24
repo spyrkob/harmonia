@@ -156,10 +156,13 @@ for jobDir in "${WORKSPACE}"/tck_work/results/*; do
         done < "$jtrfileList"
     elif [[ "$testName" == standalonedependencyinjection ]]; then
         # TODO: do the standalonedependencyinjection check 
+        :
     elif [[ "$testName" == standalonecdi ]]; then
         # TODO: do the standalonecdi check
+        :
     elif [[ "$testName" == standalonebeanvalidation ]]; then
         # TODO: do the standalonebeanvalidation check
+        :
     else
         echo "no errors found in JTR files for ${testName} ${testLink} ${jtrTestsFolder}"
     fi
