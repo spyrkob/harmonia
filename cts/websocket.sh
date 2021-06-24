@@ -1,3 +1,5 @@
+#!/bin/bash
+
 dnf install -y wget
 
 source props.sh
