@@ -1,6 +1,6 @@
 #!/bin/bash
 
-dnf install -y wget
+dnf install -y wget procps-ng net-tools
 
 source props.sh
 
