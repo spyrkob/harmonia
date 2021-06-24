@@ -70,6 +70,29 @@ for jobDir in "${WORKSPACE}"/tck_work/results/*; do
     buildId="$(basename ${jobDir})"
 
     # TODO: check results are present
+    if [ ! -d "${jobDir}/logs" ]; then
+        if [[ "$testName" == standalonedependencyinjection || "$testName" == batch || "$testName" == standalonejaxb23 || "$testName" == standalonewebsocket || "$testName" == standalonecdi || "$testName" == standalonebeanvalidation ]]; then
+            echo "no logs.zip expected for $testName" 
+        else
+            echo "<br>Ignore these CTS results as tests did not complete as expected for ${testName}, missing logs ${jobDir}/logs/, CTS admin needs to solve this."  >> $delayedresult
+            failed="1"
+            count=$((${count}+${failed}))
+        fi
+    fi
+
+    if [ ! -d "${jobDir}/tests" ]; then
+        if [[ "$testName" == standalonedependencyinjection || "$testName" == batch || "$testName" == standalonejaxb23 || "$testName" == standalonecdi || "$testName" == standalonebeanvalidation ]]; then
+            echo "no tests.zip expected for $testName" 
+        elif [[ "$testName" == javaee ]]; then
+            echo "no tests.zip expected for $testName" 
+            echo "<br>Reminder: We need a patch for our 'javaee' test challenge." >> $delayedresult
+        else
+            echo "<br>missing ${testName} tests (JTR files) for ${jobDir}/tests, fix or deal with it." >> $delayedresult
+            echo "<br>Ignore these CTS results as tests did not complete as expected for ${testName}, missing ${jobDir}/tests tests, CTS admin needs to solve this."
+            failed="1"
+            count=$((${count}+${failed}))
+        fi
+    fi
 
     testName="$(cat ${jobDir}/name.txt)"
     echo "testName: ${testName}"
