@@ -68,10 +68,12 @@ standaloneBeanValidationtests=0;
 for jobDir in "${WORKSPACE}"/tck_work/results/*; do
     pushd "${jobDir}" > /dev/null
     buildId="$(basename ${jobDir})"
+    testName="$(cat ${jobDir}/name.txt)"
+    echo "testName: ${testName}"
 
     # TODO: check results are present
     if [ ! -d "${jobDir}/logs" ]; then
-        if [[ "$testName" == standalonedependencyinjection || "$testName" == batch || "$testName" == standalonejaxb23 || "$testName" == standalonewebsocket || "$testName" == standalonecdi || "$testName" == standalonebeanvalidation ]]; then
+        if [[ "${testName}" == 'standalonedependencyinjection' || "$testName" == batch || "$testName" == standalonejaxb23 || "$testName" == standalonewebsocket || "$testName" == standalonecdi || "$testName" == standalonebeanvalidation ]]; then
             echo "no logs.zip expected for $testName" 
         else
             echo "<br>Ignore these CTS results as tests did not complete as expected for ${testName}, missing logs ${jobDir}/logs/, CTS admin needs to solve this."  >> $delayedresult
@@ -94,8 +96,6 @@ for jobDir in "${WORKSPACE}"/tck_work/results/*; do
         fi
     fi
 
-    testName="$(cat ${jobDir}/name.txt)"
-    echo "testName: ${testName}"
 
     # generate list of jaxb standalone tck JTR files with failures (indicated by "Failed.")
     if [[ "$testName" == standalonejaxb23 ]]; then
@@ -178,14 +178,93 @@ for jobDir in "${WORKSPACE}"/tck_work/results/*; do
         printf '<br><a href=\"%s/*view*/\"> %s</a>  <a href=\"%s%s\"> test source</a>' "$failingjtr" "$detailtestname" "https://github.com/eclipse-ee4j/jakartaee-tck/tree/master/src/" "$testdirectory" >> "$categories/$category.html"
         done < "$jtrfileList"
     elif [[ "$testName" == standalonedependencyinjection ]]; then
-        # TODO: do the standalonedependencyinjection check 
-        :
+        if [ -f "consoleText" ]; then
+          category=$testName
+          # failures=$(tr -d \" < "consoleText" | grep -m 1 -i "failures" | cut -d' ' -f5 | cut -c 10-)
+          failures=$(grep -m 1 -i "failures:" "consoleText" | cut -d':' -f3 | cut -d',' -f1 | tr -d '[[:blank:]]' )
+          # errors=$(tr -d \" < "consoleText" | grep -m 1 -i "errors" | cut -d' ' -f4 | cut -c 8-)
+          errors=$(grep -m 1 -i "failures:" "consoleText" | cut -d':' -f4 | cut -d',' -f1 | tr -d '[[:blank:]]' )
+          #standaloneAtInjectionTests=$(tr -d \" < "consoleText" | grep -m 1 -i "tests\=" | cut -d' ' -f11 | cut -c 7-)
+          standaloneAtInjectionTests=$(grep -m 1 -i "Tests run:" "consoleText" | cut -d':' -f2 | cut -d',' -f1 | tr -d '[[:blank:]]' )
+          standaloneAtInjectionFailureCount=$((${failures}+${errors}))
+          standaloneAtInjectionPassingCount=$((${standaloneAtInjectionTests}-${standaloneAtInjectionFailureCount}))
+          echo "standaloneAtInjectionTests = $standaloneAtInjectionTests, standaloneAtInjectionFailureCount=$standaloneAtInjectionFailureCount, standaloneAtInjectionPassingCount=$standaloneAtInjectionPassingCount"
+          if [[ -n "$errors" && "$errors" -ne "0" ]]; then
+            echo "checked and found $errors errors(s) in consoleText"
+            printf '%s (%s) has %d errors(s)<br/> \n' "$testname" "$testsuitesxml" "$errors" >> $sortresult
+            # count=$((${count}+${errors}))
+          elif [[ -n "$failures" && "$failures" -ne "0" ]]; then
+            echo "checked and found $failures failure(s) in consoleText"
+            printf '%s (%s) has %d failure(s)<br/> \n' "$testname" "$testsuitesxml" "$failures" >> $sortresult
+            # count=$((${count}+${failures}))
+          else
+            # all passed
+            echo "checked and found $failures failure(s), $errors errors for standalonedependencyinjection consoleText"
+          fi
+          # passingCount=$((${passing}+${standaloneAtInjectionPassingCount}))
+        else
+          echo "<br>could not curl ${testLink}/${testsuitesxml}" >> $delayedresult
+        fi
     elif [[ "$testName" == standalonecdi ]]; then
-        # TODO: do the standalonecdi check
-        :
+        echo "check standlone CDI console for 'marked build as failure'"
+        
+        if [ -f "consoleText" ]; then
+        
+          if grep -q 'marked build as failure' consoleText
+            then
+              standaloneCDIFailureCount=1
+              echo "Standalone CDI test job failed, check console output ${consoleLink}" >> $sortresult
+          else
+            # check artifact/weld/jboss-tck-runner/target/surefire-reports/TEST-TestSuite.xml for failures
+            if [[ -f "TEST-TestSuite.xml" && -s "TEST-TestSuite.xml" ]]; then
+              category=$testName
+              echo "check for failure count in standalone CDI testing for $testsuitesxml"
+              # tests=1807 errors=0 skipped=0 failures=0
+              standaloneCDItests=$(tr -d \" < "TEST-TestSuite.xml" | grep -m 1 -i failures |   sed -e 's/[^0-9]/ /g' -e 's/^ *//g' -e 's/ *$//g' | tr -s ' ' | sed 's/ /\n/g' | tail -n4 | head -n 1 | tail -n 1 )
+              errors=$(tr -d \" < "TEST-TestSuite.xml" | grep -m 1 -i failures |   sed -e 's/[^0-9]/ /g' -e 's/^ *//g' -e 's/ *$//g' | tr -s ' ' | sed 's/ /\n/g' | tail -n3 | head -n 1 | tail -n 1 )
+              failures=$(tr -d \" < "TEST-TestSuite.xml" | grep -m 1 -i failures |   sed -e 's/[^0-9]/ /g' -e 's/^ *//g' -e 's/ *$//g' | tr -s ' ' | sed 's/ /\n/g' | tail -n1 | head -n 1 | tail -n 1 )
+              echo "failures=$failures errors=$errors standaloneCDItests=$standaloneCDItests"
+              standaloneCDIFailureCount=$(($failures + $errors))
+              standaloneCDIPassingCount=$((${standaloneCDItests}-${standaloneCDIFailureCount}))
+              if [[ -n "$errors" && "$errors" -ne "0" ]]; then
+                echo "checked and found $errors errors(s) in TEST-TestSuite.xml"
+                printf '%s (%s) has %d errors(s)<br/> \n' "$testname" "$testsuitesxml" "$errors" >> $sortresult
+              elif [[ -n "$failures" && "$failures" -ne "0" ]]; then
+                echo "checked and found $failures failure(s) in TEST-TestSuite.xml"
+                printf '%s (%s) has %d failure(s)<br/> \n' "$testname" "$testsuitesxml" "$failures" >> $sortresult
+              else
+                # all passed
+                echo "checked and found $failures failure(s), $errors errors for standalonecdi TESTS-TestSuites.xml"
+              fi
+              # passingCount=$((${passing}+${standaloneAtInjectionPassingCount}))
+            else
+                echo "<br>could not curl ${testLink}/${testsuitesxml}" >> $delayedresult
+            fi   
+          fi
+        fi
     elif [[ "$testName" == standalonebeanvalidation ]]; then
-        # TODO: do the standalonebeanvalidation check
-        :
+        # check artifact/hibernate-validator/tck-runner/target/surefire-reports/TEST-TestSuite.xml
+      if [ -f "TEST-TestSuite.xml" ]; then
+        category=$testName
+        failures=$(tr -d \" < "TEST-TestSuite.xml" | tr -d \> | grep -m 1 -i "failures" | cut -d' ' -f9 | cut -c 10-)
+        errors=$(tr -d \" < "TEST-TestSuite.xml" | grep -m 1 -i "errors" | cut -d' ' -f7 | cut -c 8-)
+        standaloneBeanValidationtests=$(tr -d \" < "TEST-TestSuite.xml" | grep -m 1 -i "tests\=" | cut -d' ' -f6 | cut -c 7-)
+        standaloneBeanValidationFailureCount=$((${failures}+${errors}))
+        standaloneBeanValidationPassingCount=$((${standaloneBeanValidationtests}-${standaloneBeanValidationFailureCount}))
+        if [[ -n "$errors" && "$errors" -ne "0" ]]; then
+          echo "checked and found $errors errors(s) in TEST-TestSuite.xml"
+          printf '%s (%s) has %d errors(s)<br/> \n' "$testname" "$testsuitesxml" "$errors" >> $sortresult
+        elif [[ -n "$failures" && "$failures" -ne "0" ]]; then
+          echo "checked and found $failures failure(s) in TEST-TestSuite.xml"
+          printf '%s (%s) has %d failure(s)<br/> \n' "$testname" "$testsuitesxml" "$failures" >> $sortresult
+        else
+          # all passed
+          echo "checked and found $failures failure(s), $errors errors for standalonebeanvalidation TESTS-TestSuites.xml"
+        fi
+        # passingCount=$((${passing}+${standaloneAtInjectionPassingCount}))
+      else
+        echo "<br>could not curl ${testLink}/${testsuitesxml}" >> $delayedresult
+      fi
     else
         echo "no errors found in JTR files for ${testName} ${testLink} ${jtrTestsFolder}"
     fi
