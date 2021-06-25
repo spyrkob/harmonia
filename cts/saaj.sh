@@ -196,7 +196,7 @@ export TS_HOME=$PWD/javaeetck
 curl -k https://archive.apache.org/dist/ant/binaries/apache-ant-1.10.6-bin.zip -o apache-ant-1.10.6-bin.zip
 unzip -o apache-ant-1.10.6-bin.zip > /dev/null && rm -f apache-ant-1.10.6-bin.zip
 export ANT_HOME=$PWD/apache-ant-1.10.6
-curl -k https://repo1.maven.org/maven2/ant-contrib/ant-contrib/1.0b3/ant-contrib-1.0b3.jar -o apache-ant-1.10.6-bin.zip
+curl -k https://repo1.maven.org/maven2/ant-contrib/ant-contrib/1.0b3/ant-contrib-1.0b3.jar -o ant-contrib-1.0b3.jar
 mv ant-contrib-1.0b3.jar "$ANT_HOME/lib"
 
 export JEETCK_MODS=$PWD/javaeetck/tckmods
