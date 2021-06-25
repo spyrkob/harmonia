@@ -260,8 +260,8 @@ sleep 30
 
 # pool until app server listening port is open
 NUM="0"
-echo "check if appserver is listening on port 9999"
-while [[ $(netstat -an | grep -c ':9999') = 0 ]]; do
+echo "check if appserver is listening on port 9990"
+while [[ $(netstat -an | grep -c ':9990') = 0 ]]; do
 NUM=$[$NUM + 1]
 if (("$NUM" > "30")); then
     echo "Application server isn't listening on port 9999, we waited long enough, try to proceed and see if testing happens to work"
