@@ -25,7 +25,7 @@ rm -rf wildfly
 unzip wildfly.zip > /dev/null && rm -f wildfly.zip
 mv wildfly-* wildfly || true
 
-curl -k https://download.eclipse.org/jakartaee/xml-binding/2.3/jakarta-xml-binding-tck-2.3.0.zip - o jakarta-xml-binding-tck-2.3.0.zip
+curl -k https://download.eclipse.org/jakartaee/xml-binding/2.3/jakarta-xml-binding-tck-2.3.0.zip -o jakarta-xml-binding-tck-2.3.0.zip
 unzip -o jakarta-xml-binding-tck-2.3.0.zip > /dev/null && rm -f jakarta-xml-binding-tck-2.3.0.zip
 
 java -jar JAXB-TCK-2.3.jar
