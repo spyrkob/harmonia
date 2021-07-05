@@ -1,14 +1,14 @@
 #!/bin/bash
 
-yum install -y wget
+source props.sh
 
-preBuiltAppServerZip="${BUILD_COMMAND}"
+preBuiltAppServerZip="${PREBUILD_URL}"
 
 echo "use prebuilt wildfly zip $preBuiltAppServerZip"
 mkdir -p build/target
 mkdir wf
 cd wf
-wget --no-check-certificate "$preBuiltAppServerZip" --output-document=wildfly.zip
+curl -k "$preBuiltAppServerZip" -o wildfly.zip
 unzip -q wildfly.zip
 rm wildfly.zip
 mv * tempname
