@@ -1,13 +1,8 @@
 #!/bin/bash
 
-
-yum install -y wget
-
-WGET='wget -q --no-check-certificate'
-
 echo "download eclipse-jakartaeetck-8.0.2.zip for Jakarta EE 8 that resolves JSON-B regression"
-$WGET https://download.eclipse.org/jakartaee/platform/8/eclipse-jakartaeetck-8.0.2.zip.sig
-$WGET https://download.eclipse.org/jakartaee/platform/8/eclipse-jakartaeetck-8.0.2.zip
+curl -k https://download.eclipse.org/jakartaee/platform/8/eclipse-jakartaeetck-8.0.2.zip.sig -o eclipse-jakartaeetck-8.0.2.zip.sig
+curl -k https://download.eclipse.org/jakartaee/platform/8/eclipse-jakartaeetck-8.0.2.zip - o eclipse-jakartaeetck-8.0.2.zip
 
 mv eclipse-jakartaeetck-8.0.2.zip jakartaeetck.zip
 mv eclipse-jakartaeetck-8.0.2.zip.sig jakartaeetckinfo.txt
