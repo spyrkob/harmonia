@@ -4,6 +4,8 @@ source props.sh
 
 dnf install -y procps-ng net-tools
 
+mv workdir tckmods
+
 # sample cpu/memory every 30 seconds, for about 60 hours (really until end of job run), write to console in background, kill any currently running sar commands, so we don't clutter console too much
 #killall sar || true
 #sar -r -u -d -b 30 14400 &
