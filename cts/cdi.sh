@@ -10,6 +10,10 @@ echo "WORKSPACE: ${WORKSPACE}"
 # TODO: should checkout in the pipeline, but we don't know the branch until later
 dnf install -y git
 
+curl https://download.eclipse.org/jakartaee/cdi/2.0/cdi-tck-2.0.6-dist.zip -o cdi-tck-2.0.6-dist.zip
+sha256sum cdi-tck-2.0.6-dist.zip
+unzip cdi-tck-2.0.6-dist.zip
+
 # export PATH=$NATIVE_TOOLS/$JAVA18/bin:$PATH
 which java
 java -version
