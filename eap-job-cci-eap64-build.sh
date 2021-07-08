@@ -9,7 +9,7 @@ export EAP6_BUILD='true'
 "${HARMONIA_FOLDER}/eap-job.sh" ${@}
 
 if [ -d "${EAP_SOURCES_FOLDER}" ]; then
-  mv "${EAP_SOURCES_FOLDER}/*" .
+  mv "${EAP_SOURCES_FOLDER}"/* .
   rm -rf "${EAP_SOURCES_FOLDER}"
 fi
 
