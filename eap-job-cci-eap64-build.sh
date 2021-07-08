@@ -14,7 +14,7 @@ if [ -d "${EAP_SOURCES_FOLDER}" ]; then
 fi
 
 echo 'Adjust Surefire memory settings (due to failures in JDK6)'
-sed -i 's/-Duser.language=en<\/argLine>/-Duser.language=en -XX:MaxPermSize=256m<\/argLine>/g' "/pom.xml"
+sed -i 's/-Duser.language=en<\/argLine>/-Duser.language=en -XX:MaxPermSize=256m<\/argLine>/g' pom.xml
 
 echo -n "Building release artifacts..."
 
