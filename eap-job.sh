@@ -145,6 +145,8 @@ if [ "${BUILD_COMMAND}" = 'build' ]; then
   fi
 
   cd "${EAP_DIST_DIR}" || exit "${FOLDER_DOES_NOT_EXIST_ERROR_CODE}"
+  echo "zipping distr ${EAP_DIST_NAME}"
+  ls -alF
   zip -qr "${WORKSPACE}/jboss-eap-dist-${GIT_COMMIT:0:7}.zip" "${EAP_DIST_NAME}"
 
   cd "${WORKSPACE}"
