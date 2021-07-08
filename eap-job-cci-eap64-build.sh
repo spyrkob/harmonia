@@ -3,6 +3,7 @@ set -e
 
 export HARMONIA_FOLDER=${HARMONIA_FOLDER:-"$(pwd)/harmonia/"}
 export NO_ZIPFILES=${NO_ZIPFILES:-'true'}
+export EAP_DIST_DIR="jboss-as-dist-*"
 
 "${HARMONIA_FOLDER}/eap-job.sh" ${@}
 

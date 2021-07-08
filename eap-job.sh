@@ -55,6 +55,7 @@ readonly GIT_SKIP_BISECT_ERROR_CODE=${GIT_SKIP_BISECT_ERROR_CODE:-'125'}
 readonly EAP_SOURCES_FOLDER=${EAP_SOURCES_FOLDER:-'eap-sources'}
 readonly EAP_SOURCES_DIR=${EAP_SOURCES_DIR:-"${WORKSPACE}/${EAP_SOURCES_FOLDER}"}
 readonly EAP_DIST_DIR="${EAP_SOURCES_DIR}/dist/target"
+readonly EAP_DIST_NAME=${EAP_DIST_NAME:-'jboss-eap-*/'}
 readonly EAP_LOCAL_MAVEN_REPO_FOLDER=${EAP_LOCAL_MAVEN_REPO_FOLDER:-'maven-local-repository'}
 readonly LOCAL_REPO_DIR=${LOCAL_REPO_DIR:-"${WORKSPACE}/${EAP_LOCAL_MAVEN_REPO_FOLDER}"}
 readonly MEMORY_SETTINGS=${MEMORY_SETTINGS:-'-Xmx1024m -Xms512m -XX:MaxPermSize=256m'}
@@ -144,7 +145,7 @@ if [ "${BUILD_COMMAND}" = 'build' ]; then
   fi
 
   cd "${EAP_DIST_DIR}" || exit "${FOLDER_DOES_NOT_EXIST_ERROR_CODE}"
-  zip -qr "${WORKSPACE}/jboss-eap-dist-${GIT_COMMIT:0:7}.zip" jboss-eap-*/
+  zip -qr "${WORKSPACE}/jboss-eap-dist-${GIT_COMMIT:0:7}.zip" "${EAP_DIST_NAME}"
 
   cd "${WORKSPACE}"
   zip -qr jboss-eap-maven-artifacts-${GIT_COMMIT:0:7}.zip "${EAP_LOCAL_MAVEN_REPO_FOLDER}"
