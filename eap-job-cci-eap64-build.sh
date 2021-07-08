@@ -3,12 +3,13 @@ set -e
 
 export HARMONIA_FOLDER=${HARMONIA_FOLDER:-"$(pwd)/harmonia/"}
 export NO_ZIPFILES=${NO_ZIPFILES:-'true'}
-export EAP_DIST_DIR="jboss-as-dist-*"
+readonly EAP_SOURCES_FOLDER=${EAP_SOURCES_FOLDER:-'eap-sources'}
+export EAP6_BUILD='true'
 
 "${HARMONIA_FOLDER}/eap-job.sh" ${@}
 
 echo 'Adjust Surefire memory settings (due to failures in JDK6)'
-sed -i 's/-Duser.language=en<\/argLine>/-Duser.language=en -XX:MaxPermSize=256m<\/argLine>/g' pom.xml
+sed -i 's/-Duser.language=en<\/argLine>/-Duser.language=en -XX:MaxPermSize=256m<\/argLine>/g' "${EAP_SOURCES_FOLDER}/pom.xml"
 
 echo -n "Building release artifacts..."
 

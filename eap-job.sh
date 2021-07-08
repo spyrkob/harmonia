@@ -144,13 +144,13 @@ if [ "${BUILD_COMMAND}" = 'build' ]; then
     exit "${GIT_SKIP_BISECT_ERROR_CODE}"
   fi
 
-  cd "${EAP_DIST_DIR}" || exit "${FOLDER_DOES_NOT_EXIST_ERROR_CODE}"
-  echo "zipping distr ${EAP_DIST_NAME}"
-  ls -alF
-  zip -qr "${WORKSPACE}/jboss-eap-dist-${GIT_COMMIT:0:7}.zip" "${EAP_DIST_NAME}"
+  if [ -z "${EAP6_BUILD}" ]; then
+    cd "${EAP_DIST_DIR}" || exit "${FOLDER_DOES_NOT_EXIST_ERROR_CODE}"
+    zip -qr "${WORKSPACE}/jboss-eap-dist-${GIT_COMMIT:0:7}.zip" "${EAP_DIST_NAME}"
 
-  cd "${WORKSPACE}"
-  zip -qr jboss-eap-maven-artifacts-${GIT_COMMIT:0:7}.zip "${EAP_LOCAL_MAVEN_REPO_FOLDER}"
+    cd "${WORKSPACE}"
+    zip -qr jboss-eap-maven-artifacts-${GIT_COMMIT:0:7}.zip "${EAP_LOCAL_MAVEN_REPO_FOLDER}"
+  fi
 
   record_build_properties
 else
