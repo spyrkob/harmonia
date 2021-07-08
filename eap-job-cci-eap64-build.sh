@@ -8,8 +8,13 @@ export EAP6_BUILD='true'
 
 "${HARMONIA_FOLDER}/eap-job.sh" ${@}
 
+if [ -d "${EAP_SOURCES_FOLDER}" ]; then
+  mv "${EAP_SOURCES_FOLDER}/*" .
+  rm -rf "${EAP_SOURCES_FOLDER}"
+fi
+
 echo 'Adjust Surefire memory settings (due to failures in JDK6)'
-sed -i 's/-Duser.language=en<\/argLine>/-Duser.language=en -XX:MaxPermSize=256m<\/argLine>/g' "${EAP_SOURCES_FOLDER}/pom.xml"
+sed -i 's/-Duser.language=en<\/argLine>/-Duser.language=en -XX:MaxPermSize=256m<\/argLine>/g' "/pom.xml"
 
 echo -n "Building release artifacts..."
 
