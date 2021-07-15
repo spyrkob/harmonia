@@ -242,7 +242,7 @@ else
 
   export TESTSUITE_OPTS="${TESTSUITE_OPTS} ${MAVEN_SETTINGS_XML_OPTION}"
 
-  export TEST_TO_RUN=${TEST_TO_RUN:-'-DallTests'}
+  export TEST_TO_RUN=${TEST_TO_RUN:-'-DallTests -Dtest=DatabaseTimerServiceMultiNodeTestCase'}
   cd "${EAP_SOURCES_DIR}/testsuite" || exit "${FOLDER_DOES_NOT_EXIST_ERROR_CODE}"
   mvn clean
   cd ..
