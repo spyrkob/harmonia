@@ -5,6 +5,8 @@
 #
 set -eo pipefail
 
+whoami
+
 usage() {
   local -r script_name=$(basename "${0}")
   echo "${script_name} <build|testsuite> [extra-args]"
